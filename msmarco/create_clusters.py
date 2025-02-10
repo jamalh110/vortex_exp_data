@@ -80,8 +80,6 @@ distances, indices = index.search(query_embeddings[0].reshape(1, -1), k)
 print("Indices of nearest neighbors:", indices)
 print("Distances to nearest neighbors:", distances)
 
-
-
 doc_emb_map = defaultdict(dict)
 clustered_embs = [[] for _ in range(CLUSTERS_NUM)]
 embs = embeddings
@@ -93,15 +91,10 @@ for i in range(len(embs)):
     emb_id = len(clustered_embs[cluster]) - 1
     doc_emb_map[cluster][emb_id] = i
 
-# doc_emb_map = {0:{}}
-# for i in range(len(base)):
-#     doc_emb_map[0][i] = i
-
 querytexts = queries
 
 
 centroids = kmeans.centroids
-#testcentroid = np.zeros((1, 960))
 
 
 os.makedirs(EMBEDDINGS_LOC, exist_ok=True)
@@ -124,4 +117,3 @@ with open(f'{EMBEDDINGS_LOC}/doc_list.pkl', 'wb') as f:
 
 np.savetxt(f'{EMBEDDINGS_LOC}/query.csv', querytexts, fmt="%s")
 np.savetxt(f'{EMBEDDINGS_LOC}/query_emb.csv', query_embeddings, delimiter=",")
-
